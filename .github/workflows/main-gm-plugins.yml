@@ -16,6 +16,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Show repository structure
+        shell: pwsh
+        run: |
+          Get-Location
+          Get-ChildItem -Recurse -File |
+            Where-Object { $_.Extension -in ".sln", ".slnx", ".csproj" } |
+            Select-Object FullName
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
         with:
