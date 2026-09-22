@@ -16,21 +16,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Show repository structure
-        shell: pwsh
-        run: |
-          Get-Location
-          Get-ChildItem -Recurse -File |
-            Where-Object { $_.Extension -in ".sln", ".slnx", ".csproj" } |
-            Select-Object FullName
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '10.0.x'
 
       - name: Restore NuGet packages
-        run: nuget restore GM.Plugins.sln
+        run: nuget restore GM.Plugins.slnx
 
       - name: Build plugins
         run: dotnet build GM.Plugins/GM.Plugins.csproj --configuration Release --no-restore
