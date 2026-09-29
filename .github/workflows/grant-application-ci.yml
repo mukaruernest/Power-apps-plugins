@@ -15,17 +15,21 @@ jobs:
 
     steps:
 
+      # 1. Get the repository code onto the GitHub runner
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      # 2. Install the .NET SDK
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '10.0.x'
 
+      # 3. Restore NuGet packages
       - name: Restore NuGet packages
         run: nuget restore GM.Plugins\GM.Plugins.slnx
 
+      # 4. Build the Dataverse plugins
       - name: Build plugins
         run: dotnet build GM.Plugins\GM.Plugins.csproj --configuration Release --no-restore
 
@@ -35,5 +39,6 @@ jobs:
           name: gm-plugins
           path: GM.Plugins\bin\Release\
 
+      # 5. Run the plugin tests
       - name: Run plugin tests
         run: dotnet test GM.Plugin.Tests\GM.Plugin.Tests.csproj --configuration Release --no-build
