@@ -25,14 +25,18 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      # 3. Restore NuGet packages
-      - name: Restore NuGet packages
-        run: nuget restore GM.Plugins\GM.Plugins.slnx
+      # 3. Restore the plugin's packages.config dependencies to its HintPath directory
+      - name: Restore plugin NuGet packages
+        run: nuget restore GM.Plugins\packages.config -PackagesDirectory GM.Plugins\packages
 
-      # 4. Build the Dataverse plugins
+      # 4. Restore the SDK-style test project
+      - name: Restore test NuGet packages
+        run: dotnet restore GM.Plugin.Tests\GM.Plugin.Tests.csproj
+
+      # 5. Build the Dataverse plugins
       - name: Build plugins
         run: dotnet build GM.Plugins\GM.Plugins.csproj --configuration Release --no-restore
 
-      # 5. Run the plugin tests
+      # 6. Run the plugin tests
       - name: Run plugin tests
-        run: dotnet test GM.Plugin.Tests\GM.Plugin.Tests.csproj --configuration Release --no-build
+        run: dotnet test GM.Plugin.Tests\GM.Plugin.Tests.csproj --configuration Release --no-restore
