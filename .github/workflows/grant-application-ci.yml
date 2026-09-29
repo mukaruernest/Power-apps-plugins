@@ -27,7 +27,7 @@ jobs:
 
       # 3. Restore NuGet packages
       - name: Restore NuGet packages
-        run: nuget restore GM.Plugins\GM.Plugins.slnx
+        run: nuget restore GM.Plugins\GM.Plugins.csproj
 
       # 4. Build the Dataverse plugins
       - name: Build plugins
