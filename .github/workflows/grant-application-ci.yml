@@ -33,12 +33,6 @@ jobs:
       - name: Build plugins
         run: dotnet build GM.Plugins\GM.Plugins.csproj --configuration Release --no-restore
 
-      - name: Upload plugin artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: gm-plugins
-          path: GM.Plugins\bin\Release\
-
       # 5. Run the plugin tests
       - name: Run plugin tests
         run: dotnet test GM.Plugin.Tests\GM.Plugin.Tests.csproj --configuration Release --no-build
