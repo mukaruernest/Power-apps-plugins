@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="../GM.Plugin.Tests/GM.Plugin.Tests.csproj" />
-  <Project Path="GM.Plugins.csproj" Id="eb9e4b8a-443e-4b72-b4a4-dd29ee89cce5" />
+  <Project Path="D:/PowerApps/GrantsProject/GM.Plugin.Tests/GM.Plugin.Tests.csproj" />
+  <Project Path="D:/PowerApps/GrantsProject/GM.Plugins/GM.Plugins.csproj" Id="eb9e4b8a-443e-4b72-b4a4-dd29ee89cce5" />
 </Solution>
