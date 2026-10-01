@@ -65,3 +65,35 @@ jobs:
 
       - name: Run plugin tests
         run: dotnet test GM.Plugin.Tests\GM.Plugin.Tests.csproj --configuration Release --no-restore
+
+  codeql:
+    name: CodeQL security and quality scan
+    runs-on: windows-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: csharp
+          queries: security-extended,security-and-quality
+
+      - name: Restore plugin NuGet packages
+        run: nuget restore GM.Plugins\packages.config -PackagesDirectory GM.Plugins\packages
+
+      - name: Build plugin for CodeQL analysis
+        run: dotnet build GM.Plugins\GM.Plugins.csproj --configuration Release --no-restore
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
